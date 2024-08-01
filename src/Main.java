@@ -1,27 +1,26 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        Scanner in = new Scanner(System.in);
-        System.out.print(sumOfDigits(in.nextInt()));
-    }
+        List<String> finalNums = new ArrayList<>();
 
-    public static int sumOfDigits(int num){
+        for (int i = 1; i < 200; i++)
+        {
 
+            String temp = Integer.toString(i);
 
-        int sum = 0;
-        int remainder;
+            if (temp.contains("4") || temp.contains("13")) {
+                continue;
+            }
 
-        while (num > 0){
-
-            remainder = num % 10;
-            sum += remainder;
-            num /= 10;
-
+            finalNums.add(String.format("%05d", Integer.parseInt(temp)));
         }
 
-        return sum;
+        System.out.println(finalNums);
+
     }
 }
