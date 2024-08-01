@@ -1,17 +1,27 @@
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        int x = 2;
-        ArrayList<Integer> myArrayList = new ArrayList<Integer>();
+        Scanner in = new Scanner(System.in);
+        System.out.print(sumOfDigits(in.nextInt()));
+    }
 
-        for (int i = 0; i < 20; i++)
-        {
-            myArrayList.add(x);
-            System.out.print(myArrayList.get(i) + " ");
-            x *=2;
+    public static int sumOfDigits(int num){
+
+
+        int sum = 0;
+        int remainder;
+
+        while (num > 0){
+
+            remainder = num % 10;
+            sum += remainder;
+            num /= 10;
+
         }
 
+        return sum;
     }
 }
