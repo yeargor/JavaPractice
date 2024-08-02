@@ -1,26 +1,25 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        List<String> finalNums = new ArrayList<>();
+        Scanner in = new Scanner(System.in);
+        int sum = 0;
 
-        for (int i = 1; i < 200; i++)
-        {
+        System.out.println("Please, enter the number: ");
 
-            String temp = Integer.toString(i);
+        while (in.hasNextInt()){
 
-            if (temp.contains("4") || temp.contains("13")) {
-                continue;
-            }
+            int num = in.nextInt();
 
-            finalNums.add(String.format("%05d", Integer.parseInt(temp)));
+            if (num == 0) break;
+
+            sum += num;
+
+            System.out.println("Current sum: " + sum);
         }
 
-        System.out.println(finalNums);
-
+        System.out.println("Total: " + sum);
     }
 }
