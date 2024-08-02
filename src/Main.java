@@ -5,21 +5,15 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner in = new Scanner(System.in);
-        int sum = 0;
 
-        System.out.println("Please, enter the number: ");
+        int num1, num2;
 
-        while (in.hasNextInt()){
+        num1 = in.nextInt();
+        num2 = in.nextInt();
 
-            int num = in.nextInt();
+        String result = num1 > num2 ? "num1 is bigger" : "num2 is bigger";
 
-            if (num == 0) break;
+        System.out.println(result);
 
-            sum += num;
-
-            System.out.println("Current sum: " + sum);
-        }
-
-        System.out.println("Total: " + sum);
     }
 }
