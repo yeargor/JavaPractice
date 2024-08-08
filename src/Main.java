@@ -1,57 +1,87 @@
-import yeagor.Timer;
+import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
 
-        int[] vals = new int[100000000];
-        int valToFind = 99999999;
+        List<Student> students = generateStudents(6);
 
-        for (int i = 0; i < vals.length; i++) {
-            vals[i] = i + 1;
+        for (Student student : students)
+        {
+            System.out.println(student.toString());
         }
-
-        Timer.timerStart();
-
-        System.out.println(binarySearch(vals, valToFind, 0, vals.length-1));
-
-        System.out.println("Time with binarySearch: " + Timer.timerEnd() + "ns");
-
-        Timer.timerStart();
-
-        System.out.println(simpleSearch(vals,valToFind));
-
-        System.out.println("Time with simpleSearch: " + Timer.timerEnd() + "ns");
 
     }
 
-    private static int simpleSearch(int[] vals, int valToFind)
+    public static List<Student> generateStudents (int numberOfStudents)
     {
 
-        for (int val : vals) {
-            if (val == valToFind) return val;
+        List<Student> students = new ArrayList<>();
+
+        for (int i = 0; i < numberOfStudents; i++)
+        {
+            students.add(randomizeStudentData(i));
         }
 
-        return -1;
+        return students;
+
     }
 
-    private static int binarySearch(int[] vals, int valToFind, int left, int right)
+    public static Student randomizeStudentData(int studentNumber)
+    {
+        //student name, age, ID
+        String studentName = Data.names[(int) (Math.random() * Data.names.length)];
+        int age = (int) (Math.random() * 20 + 10);
+        int ID = studentNumber;
+
+        //student subject-marks HashMap
+        Map<String, Integer> progress = new HashMap<String, Integer>();
+
+        //randomly generate mark for each subject
+        for (String subject : Data.subjects) {
+            progress.put(subject, (int) (Math.random() * 10));
+        }
+
+        return new Student(studentName, age, ID, progress);
+
+    }
+
+    //to store data for generation
+    public class Data
     {
 
-        int middle = left + (right - left) /  2;
+        public static String[] names = {"Jack", "James", "Desmond", "Kate"};
+        public static String[] subjects = {"literature", "math", "physics"};
 
-        if(left == right) return valToFind == vals[middle] ? vals[middle] : -1;
+    }
 
-        if (vals[middle] > valToFind)
-        {
-            return binarySearch(vals, valToFind, left, middle -1);
+    public static class Student
+    {
+
+        private String name;
+        private int age;
+        private int ID;
+        private Map<String, Integer> progress = new HashMap<String, Integer>();
+
+        public Student(String name, int age, int groupID, Map<String, Integer> progress) {
+
+            this.name = name;
+            this.age = age;
+            this.ID = groupID;
+            this.progress = progress;
+
         }
-        else if(vals[middle] < valToFind)
-        {
-            return binarySearch(vals, valToFind, middle +1, right);
-        }
 
-        return vals[middle];
+        @Override
+        public String toString() {
+            return "Student{" +
+                    "name='" + name + '\'' +
+                    ", age=" + age +
+                    ", ID=" + ID +
+                    ", progress=" + progress +
+                    '}';
+        }
 
     }
 }
