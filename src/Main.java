@@ -48,7 +48,7 @@ public class Main {
     }
 
     //to store data for generation
-    public class Data
+    private class Data
     {
 
         public static String[] names = {"Jack", "James", "Desmond", "Kate"};
