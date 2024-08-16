@@ -1,87 +1,140 @@
-import java.util.*;
-
 public class Main {
 
     public static void main(String[] args)
     {
 
-        List<Student> students = generateStudents(6);
+        Employee emp = new Employee("John", 23, Gender.MALE, 0, 2300);
+        System.out.println(emp.toString());
+        emp.sing();
+        emp.play();
 
-        for (Student student : students)
-        {
-            System.out.println(student.toString());
+        Employee mgr = new Manager("Desmond", 19, Gender.values()[0], 1, 2600, "Tesla Model S");
+        System.out.println(mgr.toString());
+        mgr.sing();
+        mgr.play();
+
+    }
+
+    public static class Manager extends Employee {
+
+        private String vehicle;
+
+        public Manager(String name, int age, Gender gender, int ID, int salary, String vehicle) {
+            super(name, age, gender, ID, salary);
+            this.vehicle = vehicle;
         }
 
-    }
-
-    public static List<Student> generateStudents (int numberOfStudents)
-    {
-
-        List<Student> students = new ArrayList<>();
-
-        for (int i = 0; i < numberOfStudents; i++)
-        {
-            students.add(randomizeStudentData(i));
+        public String getVehicle() {
+            return vehicle;
         }
 
-        return students;
-
-    }
-
-    public static Student randomizeStudentData(int studentNumber)
-    {
-        //student name, age, ID
-        String studentName = Data.names[(int) (Math.random() * Data.names.length)];
-        int age = (int) (Math.random() * 20 + 10);
-        int ID = studentNumber;
-
-        //student subject-marks HashMap
-        Map<String, Integer> progress = new HashMap<String, Integer>();
-
-        //randomly generate mark for each subject
-        for (String subject : Data.subjects) {
-            progress.put(subject, (int) (Math.random() * 10));
-        }
-
-        return new Student(studentName, age, ID, progress);
-
-    }
-
-    //to store data for generation
-    public class Data
-    {
-
-        public static String[] names = {"Jack", "James", "Desmond", "Kate"};
-        public static String[] subjects = {"literature", "math", "physics"};
-
-    }
-
-    public static class Student
-    {
-
-        private String name;
-        private int age;
-        private int ID;
-        private Map<String, Integer> progress = new HashMap<String, Integer>();
-
-        public Student(String name, int age, int groupID, Map<String, Integer> progress) {
-
-            this.name = name;
-            this.age = age;
-            this.ID = groupID;
-            this.progress = progress;
-
+        @Override
+        public void play() {
+            System.out.println("playing");
         }
 
         @Override
         public String toString() {
-            return "Student{" +
-                    "name='" + name + '\'' +
-                    ", age=" + age +
-                    ", ID=" + ID +
-                    ", progress=" + progress +
+            return "Manager{" +
+                    "vehicle='" + vehicle + '\'' +
+                    ", ID=" + getID() +
+                    ", salary=" + getSalary() +
+                    ", name='" + getName() + '\'' +
+                    ", age=" + getAge() +
+                    ", gender='" + getGender() + '\'' +
                     '}';
         }
 
     }
+
+    public static class Employee extends Role
+    {
+
+        public int getSalary() {
+            return salary;
+        }
+
+        public int getID() {
+            return ID;
+        }
+
+        private int ID;
+        private int salary;
+
+
+        public Employee(String name, int age, Gender gender, int ID, int salary) {
+
+            super(name , age, gender);
+            this.ID = ID;
+            this.salary = salary;
+        }
+
+        public void play() {
+            System.out.println("playing");
+        }
+
+        public String toString() {
+            return "Employee{" +
+                    "ID=" + ID +
+                    ", salary=" + salary +
+                    ", name='" + getName() + '\'' +
+                    ", gender='" + getGender() + '\'' +
+                    ", age=" + getAge() +
+                    '}';
+        }
+
+    }
+
+    public static abstract class Role
+    {
+
+        private String name;
+        private int age;
+        private Gender gender;
+
+        public Role(String name, int age, Gender gender) {
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+        }
+
+        public abstract void play();
+
+        public void sing()
+        {
+            System.out.println("singing");
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public Gender getGender() {
+            return gender;
+        }
+
+        public void setGender(Gender gender) {
+            this.gender = gender;
+        }
+
+    }
+
+    public enum Gender
+    {
+        MALE,
+        FEMALE
+    }
+
 }
